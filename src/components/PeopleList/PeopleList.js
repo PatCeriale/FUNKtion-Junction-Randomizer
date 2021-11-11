@@ -16,7 +16,7 @@ export default function PeopleList(props) {
       {/* <ul> */}
       {props.people.length > 0
         ? props.people
-            .sort((a, b) => a.name.first.localeCompare(b.name.first))
+            .sort((a, b) => a.name.last.localeCompare(b.name.last))
             .map((item, index) => {
               return (
                 <div key={index}>

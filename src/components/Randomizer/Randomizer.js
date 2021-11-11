@@ -12,6 +12,7 @@ import {
 
 export default function Randomizer(props) {
   const [peopleNumber, setPeopleNumber] = useState(0);
+  const [potentialPeople, setPotentialPeople] = useState([]);
   const [people, setPeople] = useState([]);
 
   // const array = [
@@ -35,17 +36,35 @@ export default function Randomizer(props) {
     times && --times && repeat(func, times);
   }
 
-  function pushTheButton() {
+  function getRandomList() {
     const newArray = [];
     // console.log(result);
 
     repeat(function () {
-      const result = getRandomItem(array).name.first;
-      newArray.push(result);
+      const result = getRandomItem(array).name;
+      newArray.push(`${result.first} ${result.last}`);
     }, peopleNumber);
 
-    setPeople(newArray);
-    console.log(newArray);
+    setPotentialPeople(newArray);
+    console.log(newArray.sort((a, b) => a.localeCompare(b)));
+  }
+
+  function hasDuplicates(arr) {
+    return arr.some((x) => arr.indexOf(x) !== arr.lastIndexOf(x));
+  }
+
+  var arr = [2, 4, 6, 5, 4];
+
+  function pushTheButton() {
+    getRandomList();
+    // if no duplicates setPeople
+
+    if (hasDuplicates(potentialPeople)) {
+      console.log('Duplicate elements found.');
+    } else {
+      setPeople(potentialPeople);
+      console.log('No Duplicates found.');
+    }
   }
 
   return (
