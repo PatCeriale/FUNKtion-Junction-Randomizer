@@ -16,11 +16,11 @@ export default function PeopleList(props) {
       {/* <ul> */}
       {props.people.length > 0
         ? props.people
-            .sort((a, b) => a.name.last.localeCompare(b.name.last))
+            .sort((a, b) => a.localeCompare(b))
             .map((item, index) => {
               return (
                 <div key={index}>
-                  {`${item.name.first} ${item.name.last}`}{' '}
+                  {`${item}`}{' '}
                   <Button
                     style={{
                       backgroundColor: 'red',

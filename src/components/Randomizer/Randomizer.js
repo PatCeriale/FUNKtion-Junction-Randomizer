@@ -11,16 +11,41 @@ import {
 // program to get a random item from an array
 
 export default function Randomizer(props) {
-  const [peopleNumber, setPeopleNumber] = useState(0);
+  const [peopleNumber, setPeopleNumber] = useState(1);
   const [potentialPeople, setPotentialPeople] = useState([]);
   const [people, setPeople] = useState([]);
 
   // const array = [
   //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-  //   22, 23,
+  //   22, 23, 24, 25,
+  //26, 27, 28, 29, 20, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+  //41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
+  //60, 61, 62, 63, 64, 65,
   // ];
 
   const array = props.people;
+
+  function randomSort(arr) {
+    const randomSortArray = arr.sort(() => (Math.random() > 0.5 ? 1 : -1));
+    console.log(randomSortArray);
+    const newNew = chunkArray(randomSortArray, peopleNumber);
+    console.log(newNew);
+    setPeople(newNew);
+  }
+
+  function chunkArray(myArray, chunk_size) {
+    var index = 0;
+    var arrayLength = myArray.length;
+    var tempArray = [];
+
+    for (index = 0; index < arrayLength; index += chunk_size) {
+      const myChunk = myArray.slice(index, index + chunk_size);
+      // Do something if you want with the group
+      tempArray.push(myChunk);
+    }
+
+    return tempArray;
+  }
 
   function getRandomItem(arr) {
     // get random index value
@@ -41,12 +66,15 @@ export default function Randomizer(props) {
     // console.log(result);
 
     repeat(function () {
-      const result = getRandomItem(array).name;
-      newArray.push(`${result.first} ${result.last}`);
+      const result = getRandomItem(array);
+      // const result = getRandomItem(array).name;
+      newArray.push(result);
+      // newArray.push(`${result.first} ${result.last}`);
     }, peopleNumber);
 
     setPotentialPeople(newArray);
-    console.log(newArray.sort((a, b) => a.localeCompare(b)));
+    console.log(newArray);
+    // console.log(newArray.sort((a, b) => a.localeCompare(b)));
   }
 
   function hasDuplicates(arr) {
@@ -79,7 +107,7 @@ export default function Randomizer(props) {
             >
               <Form.Label>Number of people </Form.Label>
               <Form.Control as='select'>
-                <option value='0'>Choose a number</option>
+                <option value='1'>Choose a number</option>
                 <option value='1'>1</option>
                 <option value='2'>2</option>
                 <option value='3'>3</option>
@@ -100,12 +128,22 @@ export default function Randomizer(props) {
           </Form>
         </Col>
         <Col xs={3}>
-          <Button variant='primary' onClick={pushTheButton}>
+          {/* <Button variant='primary' onClick={pushTheButton}>
+            RANDOMIZE!
+          </Button> */}
+          <Button variant='primary' onClick={() => randomSort(array)}>
             RANDOMIZE!
           </Button>
         </Col>
       </Row>
-      {people.length > 0 ? `Random people: ${people.map((x) => `${x} `)}` : ''}
+      {/* {people.length > 0
+        ? `Random people: ${people.map((x) => `${x} |||||||`)}`
+        : ''} */}
+      {people.length > 0
+        ? people.map((x, index) => (
+            <ol>{parseInt(index) + 1 + '. ' + x.map((y) => `${y}, `)}</ol>
+          ))
+        : ''}
       {/* Random people: {people.map((x) => `${x} `)} */}
     </Container>
   );
