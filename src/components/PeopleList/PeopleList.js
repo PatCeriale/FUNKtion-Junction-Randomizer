@@ -8,6 +8,10 @@ export default function PeopleList(props) {
     console.log(`Target: ${id}`);
   };
 
+  const addEmployee = (id) => {
+    console.log(`Target: ${id}`);
+  };
+
   return (
     <div>
       <h3>Digital Studio People</h3>
@@ -33,6 +37,19 @@ export default function PeopleList(props) {
                     }}
                   >
                     X
+                  </Button>{' '}
+                  <Button
+                    style={{
+                      backgroundColor: '',
+                      margin: '3px',
+                      borderRadius: '5px',
+                    }}
+                    key={index}
+                    onClick={(e) => {
+                      addEmployee(item);
+                    }}
+                  >
+                    Add
                   </Button>
                 </div>
               );

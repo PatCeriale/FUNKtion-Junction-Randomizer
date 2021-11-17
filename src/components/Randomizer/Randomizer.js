@@ -14,6 +14,7 @@ export default function Randomizer(props) {
   const [peopleNumber, setPeopleNumber] = useState(1);
   const [potentialPeople, setPotentialPeople] = useState([]);
   const [people, setPeople] = useState([]);
+  const [tempPeople, setTempPeople] = useState([]);
 
   // const array = [
   //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -141,7 +142,7 @@ export default function Randomizer(props) {
         : ''} */}
       {people.length > 0
         ? people.map((x, index) => (
-            <ol>{parseInt(index) + 1 + '. ' + x.map((y) => `${y}, `)}</ol>
+            <ol>{parseInt(index) + 1 + '. ' + x.map((y) => `${y} `)}</ol>
           ))
         : ''}
       {/* Random people: {people.map((x) => `${x} `)} */}
