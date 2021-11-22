@@ -7,6 +7,14 @@ import {
   Row,
 } from 'react-bootstrap';
 import react, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import 'font-awesome/css/font-awesome.min.css';
+import {
+  faCheckSquare,
+  faCoffee,
+  faPlusCircle,
+  faMinusCircle,
+} from '@fortawesome/fontawesome-free-solid';
 
 // API call for people
 // Dump into array
@@ -49,13 +57,13 @@ export default function PeopleList(props) {
         <Row>
           <Col xs={6}>
             <h3>Current List</h3>
+            <hr />
             {props.addedPeople.length > 0
               ? props.addedPeople
                   .sort((a, b) => a.localeCompare(b))
                   .map((item, index) => {
                     return (
                       <div key={index}>
-                        {`${index + 1}. ${item}`}{' '}
                         <ToggleButton
                           className='mb-2'
                           id='toggle-check'
@@ -70,22 +78,22 @@ export default function PeopleList(props) {
                             removeEmployee(item);
                           }}
                         >
-                          Remove
+                          {`${index + 1}. ${item}`}{' '}
+                          <FontAwesomeIcon icon={faMinusCircle} />
                         </ToggleButton>
                       </div>
                     );
                   })
-              : ''}
+              : 'Add people to list'}
           </Col>
           <Col xs={6}>
-            <h3>Digital Studio People</h3>{' '}
+            <h3>Digital Studio People</h3> <hr />
             {props.people.length > 0
               ? props.people
                   .sort((a, b) => a.localeCompare(b))
                   .map((item, index) => {
                     return (
                       <div key={index}>
-                        {`${index + 1}. ${item}`}{' '}
                         {/* <Button
                           // {checked=true ?
                           // style={
@@ -123,7 +131,8 @@ export default function PeopleList(props) {
                             addEmployee(item);
                           }}
                         >
-                          Add
+                          {`${index + 1}. ${item}`}{' '}
+                          <FontAwesomeIcon icon={faPlusCircle} />
                         </ToggleButton>{' '}
                         {/* <Button
                     style={{
