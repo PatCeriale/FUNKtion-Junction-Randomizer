@@ -99,16 +99,17 @@ export default function Randomizer(props) {
   return (
     <Container>
       <Row>
-        <Col xs={96}>
+        <Col xs={3}>{/* Number of people */}</Col>
+        <Col xs={6}>
           <Form>
             <Form.Group
               controlId='floatingSelect'
-              label=' Number of people'
+              label='People per group'
               onChange={(e) => setPeopleNumber(parseInt(e.target.value))}
             >
-              <Form.Label>Number of people </Form.Label>
+              <Form.Label></Form.Label>
               <Form.Control as='select'>
-                <option value='1'>Choose a number</option>
+                <option value='1'>People per group</option>
                 <option value='1'>1</option>
                 <option value='2'>2</option>
                 <option value='3'>3</option>
@@ -132,17 +133,22 @@ export default function Randomizer(props) {
           {/* <Button variant='primary' onClick={pushTheButton}>
             RANDOMIZE!
           </Button> */}
-          <Button variant='primary' onClick={() => randomSort(array)}>
-            RANDOMIZE!
-          </Button>
         </Col>
       </Row>
+      <br />
+      <Button variant='primary' onClick={() => randomSort(array)}>
+        RANDOMIZE!
+      </Button>
       {/* {people.length > 0
         ? `Random people: ${people.map((x) => `${x} |||||||`)}`
         : ''} */}
+      <br />
+      <br />
       {people.length > 0
         ? people.map((x, index) => (
-            <ol>{parseInt(index) + 1 + '. ' + x.map((y) => `${y} `)}</ol>
+            <ol>
+              {'Group ' + (parseInt(index) + 1) + '. ' + x.map((y) => `${y} `)}
+            </ol>
           ))
         : ''}
       {/* Random people: {people.map((x) => `${x} `)} */}
