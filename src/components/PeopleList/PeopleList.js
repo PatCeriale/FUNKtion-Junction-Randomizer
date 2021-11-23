@@ -21,7 +21,7 @@ import {
 
 export default function PeopleList(props) {
   // const [addedPeople, setAddedPeople] = useState();
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
 
   const addedPeopleArray = props.addedPeople;
 

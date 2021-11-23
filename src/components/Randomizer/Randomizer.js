@@ -14,7 +14,7 @@ export default function Randomizer(props) {
   const [peopleNumber, setPeopleNumber] = useState(1);
   const [potentialPeople, setPotentialPeople] = useState([]);
   const [people, setPeople] = useState([]);
-  const [tempPeople, setTempPeople] = useState([]);
+  const [groupType, setGroupType] = useState('Number of groups');
 
   // const array = [
   //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -28,13 +28,16 @@ export default function Randomizer(props) {
 
   function randomSort(arr) {
     const randomSortArray = arr.sort(() => (Math.random() > 0.5 ? 1 : -1));
-    console.log(randomSortArray);
-    const newNew = chunkArray(randomSortArray, peopleNumber);
+    console.log(randomSortArray, groupType);
+    const newNew =
+      groupType === 'Number of groups'
+        ? chunkArrayGroupSize(randomSortArray, peopleNumber)
+        : chunkArrayPeopleNumber(randomSortArray, peopleNumber);
     console.log(newNew);
     setPeople(newNew);
   }
 
-  function chunkArray(myArray, chunk_size) {
+  function chunkArrayPeopleNumber(myArray, chunk_size) {
     var index = 0;
     var arrayLength = myArray.length;
     var tempArray = [];
@@ -46,6 +49,15 @@ export default function Randomizer(props) {
     }
 
     return tempArray;
+  }
+
+  function chunkArrayGroupSize(array, number) {
+    const copyArray = array.map((v) => v);
+    let result = [];
+    for (let i = number; i > 0; i--) {
+      result.push(copyArray.splice(0, Math.ceil(copyArray.length / i)));
+    }
+    return result;
   }
 
   function getRandomItem(arr) {
@@ -98,10 +110,10 @@ export default function Randomizer(props) {
 
   return (
     <Container>
-      <Row>
-        <Col xs={3}>{/* Number of people */}</Col>
-        <Col xs={6}>
-          <Form>
+      <Form>
+        <Row>
+          <Col xs={6}>
+            {/* Number of people */}{' '}
             <Form.Group
               controlId='floatingSelect'
               label='People per group'
@@ -109,7 +121,6 @@ export default function Randomizer(props) {
             >
               <Form.Label></Form.Label>
               <Form.Control as='select'>
-                <option value='1'>People per group</option>
                 <option value='1'>1</option>
                 <option value='2'>2</option>
                 <option value='3'>3</option>
@@ -127,14 +138,27 @@ export default function Randomizer(props) {
                 <option value='15'>15</option>
               </Form.Control>
             </Form.Group>
-          </Form>
-        </Col>
-        <Col xs={3}>
-          {/* <Button variant='primary' onClick={pushTheButton}>
+          </Col>
+          <Col xs={6}>
+            <Form.Group
+              controlId='floatingSelect'
+              label='People per group'
+              onChange={(e) => setGroupType(e.target.value)}
+            >
+              <Form.Label></Form.Label>
+              <Form.Control as='select'>
+                <option value='Number of groups'>Number of groups</option>
+                <option value='People per group'>People per group</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+          <Col xs={3}>
+            {/* <Button variant='primary' onClick={pushTheButton}>
             RANDOMIZE!
           </Button> */}
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </Form>
       <br />
       <Button variant='primary' onClick={() => randomSort(array)}>
         RANDOMIZE!
