@@ -130,6 +130,11 @@ export default function PeopleList(props) {
                             e.preventDefault();
                             addEmployee(item);
                           }}
+                          style={
+                            addedPeopleArray.includes(item)
+                              ? { border: 'solid 3px blue' }
+                              : { border: 'solid 3px green' }
+                          }
                         >
                           {`${index + 1}. ${item}`}{' '}
                           <FontAwesomeIcon icon={faPlusCircle} />
