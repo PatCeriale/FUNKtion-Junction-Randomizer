@@ -75,6 +75,7 @@ export default function PeopleList(props) {
                           //   setChecked(e.currentTarget.checked === false)
                           // }
                           onClick={(e) => {
+                            e.preventDefault();
                             removeEmployee(item);
                           }}
                         >
