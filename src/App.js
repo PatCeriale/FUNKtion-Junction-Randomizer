@@ -89,13 +89,18 @@ function App() {
 
   // async await
   //////////////// this works!!!//////////////////
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await API.getPeople();
-  //     setPeopleApi(res.data.results);
-  //     console.log(res);
-  //   })();
-  // }, []);
+  const ApiPeopleArray = [];
+  useEffect(() => {
+    (async () => {
+      const res = await API.getPeople();
+      // setPeopleApi(res.data.results);
+      console.log(`From API: ${JSON.stringify(res.data[0].title)}`);
+      for (let i = 0; i < res.data.length; i++) {
+        ApiPeopleArray.push({ title: res.data[i].title, id: res.data[i].id });
+      }
+      console.log(ApiPeopleArray[2].id);
+    })();
+  }, []);
   //////////////////////////////////////////////
   // Set timeout
 
